@@ -1,10 +1,10 @@
 import { parseStyleAttribute } from "../utils";
 
-export function transformMsoStyles(html: string): string {
-    html = html.replace(/<o:p>(.*?)<\/o:p>/g, ``);
+export function transformMsoStyles(doc: Document) {
+    doc.querySelectorAll(CSS.escape('o:p')).forEach(node => {
+        node.remove();
+    });
 
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, `text/html`);
     doc.querySelectorAll(`[style*="mso-"]`).forEach(node => {
         const styles = parseStyleAttribute(node);
         const newStyles: string[] = [];
@@ -19,6 +19,4 @@ export function transformMsoStyles(html: string): string {
     doc.querySelectorAll(`[style*="color: black"]`).forEach(node => {
         (node as HTMLElement).style.removeProperty(`color`);
     });
-
-    return doc.documentElement.outerHTML;
 }

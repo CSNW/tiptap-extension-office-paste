@@ -19,14 +19,19 @@ const OfficePastePlugin = new Plugin({
     key: new PluginKey('office-paste'),
     props: {
         transformPastedHTML(html: string): string {
-            if (html.indexOf(`microsoft-com`) !== -1 && html.indexOf(`office`) !== -1) {
-                html = transformLists(html);
-                html = transformRemoveBookmarks(html);
-                html = transformMsoStyles(html);
-                html = transformMsoHtmlClasses(html);
-                html = transformRemoveLineNumberWrapper(html);
+            if (html.indexOf(`microsoft-com`) < 0 || html.indexOf(`office`) < 0) {
+                return html;
             }
-            return html;
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, `text/html`);
+            transformLists(doc);
+            transformRemoveBookmarks(doc);
+            transformMsoStyles(doc);
+            transformMsoHtmlClasses(doc);
+            transformRemoveLineNumberWrapper(doc);
+
+            return doc.documentElement.outerHTML;
         }
     }
 });
