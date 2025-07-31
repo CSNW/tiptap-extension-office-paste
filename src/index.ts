@@ -10,12 +10,12 @@ const OfficePastePlugin = new Plugin({
   key: new PluginKey("office-paste"),
   props: {
     transformPastedHTML(html) {
-      if (html.indexOf(`microsoft-com`) < 0 || html.indexOf(`office`) < 0) {
+      if (html.indexOf("microsoft-com") < 0 || html.indexOf("office") < 0) {
         return html;
       }
 
       const parser = new DOMParser();
-      const doc = parser.parseFromString(html, `text/html`);
+      const doc = parser.parseFromString(html, "text/html");
       transformLists(doc);
       transformRemoveBookmarks(doc);
       transformMsoStyles(doc);
@@ -29,7 +29,7 @@ const OfficePastePlugin = new Plugin({
 
 const OfficePaste = Extension.create({
   priority: 99999,
-  name: `office-paste`,
+  name: "office-paste",
 
   addProseMirrorPlugins() {
     return [OfficePastePlugin];

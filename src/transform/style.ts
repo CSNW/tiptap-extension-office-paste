@@ -5,18 +5,18 @@ export function transformMsoStyles(doc: Document) {
     node.remove();
   });
 
-  doc.querySelectorAll<HTMLElement>(`[style*="mso-"]`).forEach((node) => {
+  doc.querySelectorAll<HTMLElement>('[style*="mso-"]').forEach((node) => {
     const styles = parseStyleAttribute(node);
     const newStyles: string[] = [];
     for (const prop of Object.keys(styles)) {
-      if (prop && !prop.startsWith(`mso-`)) {
+      if (prop && !prop.startsWith("mso-")) {
         newStyles.push(`${prop}: ${styles[prop]}`);
       }
     }
-    node.setAttribute(`style`, newStyles.join(`;`));
+    node.setAttribute("style", newStyles.join(";"));
   });
 
-  doc.querySelectorAll<HTMLElement>(`[style*="color: black"]`).forEach((node) => {
-    node.style.removeProperty(`color`);
+  doc.querySelectorAll<HTMLElement>('[style*="color: black"]').forEach((node) => {
+    node.style.removeProperty("color");
   });
 }

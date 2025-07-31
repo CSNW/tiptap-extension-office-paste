@@ -3,9 +3,9 @@ import { parseLetterNumber, parseRomanNumber, parseStyleAttribute } from "../uti
 export function transformLists(doc: Document) {
   let listStack: HTMLElement[] = [];
   let currentListId: string;
-  const listElements = doc.querySelectorAll<HTMLParagraphElement>(`p[style*="mso-list:"]`);
+  const listElements = doc.querySelectorAll<HTMLParagraphElement>('p[style*="mso-list:"]');
   listElements.forEach((el) => {
-    const msoListStyle = parseStyleAttribute(el)[`mso-list`];
+    const msoListStyle = parseStyleAttribute(el)["mso-list"];
     if (!msoListStyle) {
       return;
     }
@@ -19,7 +19,6 @@ export function transformLists(doc: Document) {
 
     while (msoListLevel > listStack.length) {
       const newList = createListElement(el);
-
       if (listStack.length > 0) {
         listStack[listStack.length - 1].appendChild(newList);
       } else {
@@ -39,25 +38,22 @@ export function transformLists(doc: Document) {
 }
 
 function hasNonListItemSibling(el: HTMLElement) {
-  return (
-    !el.previousElementSibling ||
-    !(el.previousElementSibling.nodeName === `OL` || el.previousElementSibling.nodeName === `UL`)
-  );
+  return !el.previousElementSibling || !["OL", "UL"].includes(el.previousElementSibling.nodeName);
 }
 
 function getListItemFromParagraph(el: HTMLElement) {
-  const li = document.createElement(`li`);
+  const li = document.createElement("li");
 
   let skipNodes = false;
   for (const node of el.childNodes) {
-    if (node.nodeType === Node.COMMENT_NODE && node.textContent === `[if !supportLists]`) {
+    if (node.nodeType === Node.COMMENT_NODE && node.textContent === "[if !supportLists]") {
       skipNodes = true;
       continue;
     }
     if (!skipNodes) {
       li.appendChild(node.cloneNode(true));
     }
-    if (node.nodeType === Node.COMMENT_NODE && node.textContent === `[endif]`) {
+    if (node.nodeType === Node.COMMENT_NODE && node.textContent === "[endif]") {
       skipNodes = false;
     }
   }
@@ -65,34 +61,33 @@ function getListItemFromParagraph(el: HTMLElement) {
   return li;
 }
 
-// Parses `mso-list` style attribute
+// Parses 'mso-list' style attribute
 function parseMsoListAttribute(attr: string) {
-  const msoListValue: string = attr;
-  const msoListInfos = msoListValue.split(` `);
-  const msoListId = msoListInfos.find((e) => /l[0-9]+/.test(e)) || ``;
-  const msoListLevel = +(msoListInfos.find((e: string) => e.startsWith(`level`))?.substring(5) || 1);
+  const msoListInfos = attr.split(" ");
+  const msoListId = msoListInfos.find((e) => /l[0-9]+/.test(e)) || "";
+  const msoListLevel = +(msoListInfos.find((e: string) => e.startsWith("level"))?.substring(5) || 1);
 
   return [msoListId, msoListLevel] as const;
 }
 
 function getListPrefix(el: HTMLElement) {
   for (const node of el.childNodes) {
-    if (node.nodeType === Node.COMMENT_NODE && node.textContent === `[if !supportLists]`) {
-      return node.nextSibling?.textContent?.trim() ?? ``;
+    if (node.nodeType === Node.COMMENT_NODE && node.textContent === "[if !supportLists]") {
+      return node.nextSibling?.textContent?.trim() ?? "";
     }
   }
 
-  return ``;
+  return "";
 }
 
 function createListElement(el: HTMLElement) {
   const listInfo = getListInfo(getListPrefix(el));
   const list = document.createElement(listInfo.type);
   if (listInfo.countType) {
-    list.setAttribute(`type`, listInfo.countType);
+    list.setAttribute("type", listInfo.countType);
   }
   if (listInfo.start > 1) {
-    list.setAttribute(`start`, listInfo.start.toString());
+    list.setAttribute("start", listInfo.start.toString());
   }
   return list;
 }
@@ -106,29 +101,29 @@ const listOrderRegex = {
 };
 
 function getListInfo(prefix: string) {
-  let type: "ul" | "ol" = `ul`;
+  let type: "ul" | "ol" = "ul";
   let countType: string | null = null;
   let start = 1;
   let matches: RegExpMatchArray | null;
   if ((matches = prefix.match(listOrderRegex.number))) {
-    type = `ol`;
-    start = +matches[0].replace(`.`, ``);
+    type = "ol";
+    start = +matches[0].replace(".", "");
   } else if ((matches = prefix.match(listOrderRegex.romanLower))) {
-    type = `ol`;
-    countType = `i`;
-    start = +parseRomanNumber(matches[0].replace(`.`, ``));
+    type = "ol";
+    countType = "i";
+    start = +parseRomanNumber(matches[0].replace(".", ""));
   } else if ((matches = prefix.match(listOrderRegex.romanUpper))) {
-    type = `ol`;
-    countType = `I`;
-    start = +parseRomanNumber(matches[0].replace(`.`, ``));
+    type = "ol";
+    countType = "I";
+    start = +parseRomanNumber(matches[0].replace(".", ""));
   } else if ((matches = prefix.match(listOrderRegex.letterLower))) {
-    type = `ol`;
-    countType = `a`;
-    start = +parseLetterNumber(matches[0].replace(`.`, ``));
+    type = "ol";
+    countType = "a";
+    start = +parseLetterNumber(matches[0].replace(".", ""));
   } else if ((matches = prefix.match(listOrderRegex.letterUpper))) {
-    type = `ol`;
-    countType = `A`;
-    start = +parseLetterNumber(matches[0].replace(`.`, ``));
+    type = "ol";
+    countType = "A";
+    start = +parseLetterNumber(matches[0].replace(".", ""));
   }
 
   return {
