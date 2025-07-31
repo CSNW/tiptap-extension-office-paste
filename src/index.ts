@@ -18,7 +18,7 @@ const OfficePaste = Extension.create({
 const OfficePastePlugin = new Plugin({
   key: new PluginKey("office-paste"),
   props: {
-    transformPastedHTML(html: string): string {
+    transformPastedHTML(html) {
       if (html.indexOf(`microsoft-com`) < 0 || html.indexOf(`office`) < 0) {
         return html;
       }

@@ -3,10 +3,13 @@ import { parseLetterNumber, parseRomanNumber, parseStyleAttribute } from "../uti
 export function transformLists(doc: Document) {
   let listStack: HTMLElement[] = [];
   let currentListId: string;
-  const listElements = doc.querySelectorAll(`p[style*="mso-list:"]`);
-  listElements.forEach((node) => {
-    const el = <HTMLElement>node;
-    const [msoListId, msoListLevel] = parseMsoListAttribute(parseStyleAttribute(el)[`mso-list`]);
+  const listElements = doc.querySelectorAll<HTMLParagraphElement>(`p[style*="mso-list:"]`);
+  listElements.forEach((el) => {
+    const msoListStyle = parseStyleAttribute(el)[`mso-list`];
+    if (!msoListStyle) {
+      return;
+    }
+    const [msoListId, msoListLevel] = parseMsoListAttribute(msoListStyle);
 
     // Check for start of a new list
     if (currentListId !== msoListId && (hasNonListItemSibling(el) || msoListLevel === 1)) {
@@ -35,14 +38,14 @@ export function transformLists(doc: Document) {
   });
 }
 
-function hasNonListItemSibling(el: HTMLElement): boolean {
+function hasNonListItemSibling(el: HTMLElement) {
   return (
     !el.previousElementSibling ||
     !(el.previousElementSibling.nodeName === `OL` || el.previousElementSibling.nodeName === `UL`)
   );
 }
 
-function getListItemFromParagraph(el: HTMLElement): HTMLLIElement {
+function getListItemFromParagraph(el: HTMLElement) {
   const li = document.createElement(`li`);
 
   let skipNodes = false;
@@ -63,16 +66,16 @@ function getListItemFromParagraph(el: HTMLElement): HTMLLIElement {
 }
 
 // Parses `mso-list` style attribute
-function parseMsoListAttribute(attr: string): [id: string, level: number] {
+function parseMsoListAttribute(attr: string) {
   const msoListValue: string = attr;
   const msoListInfos = msoListValue.split(` `);
   const msoListId = msoListInfos.find((e) => /l[0-9]+/.test(e)) || ``;
   const msoListLevel = +(msoListInfos.find((e: string) => e.startsWith(`level`))?.substring(5) || 1);
 
-  return [msoListId, msoListLevel];
+  return [msoListId, msoListLevel] as const;
 }
 
-function getListPrefix(el: HTMLElement): string {
+function getListPrefix(el: HTMLElement) {
   for (const node of el.childNodes) {
     if (node.nodeType === Node.COMMENT_NODE && node.textContent === `[if !supportLists]`) {
       return node.nextSibling?.textContent?.trim() ?? ``;
@@ -82,7 +85,7 @@ function getListPrefix(el: HTMLElement): string {
   return ``;
 }
 
-function createListElement(el: HTMLElement): HTMLElement {
+function createListElement(el: HTMLElement) {
   const listInfo = getListInfo(getListPrefix(el));
   const list = document.createElement(listInfo.type);
   if (listInfo.countType) {
@@ -102,8 +105,8 @@ const listOrderRegex = {
   letterUpper: /[A-Z]+\./,
 };
 
-function getListInfo(prefix: string): { type: string; start: number; countType: string | null } {
-  let type = `ul`;
+function getListInfo(prefix: string) {
+  let type: "ul" | "ol" = `ul`;
   let countType: string | null = null;
   let start = 1;
   let matches: RegExpMatchArray | null;

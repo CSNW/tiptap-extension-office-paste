@@ -1,21 +1,25 @@
+// It is expected that the string passed to parseRomanNumber has already been verified to contain
+// only these characters, so Record<string, number | undefined> is not necessary.
+const romanValues: Record<string, number> = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
+
 /**
  * Parses a roman number string into a number
  *
  * Example: a -> 1, ab -> 28, ...
  */
-export function parseRomanNumber(roman: string): number {
-  roman = roman.toUpperCase();
+export function parseRomanNumber(str: string): number {
+  str = str.toUpperCase();
   let value = 0;
-  const values = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
-  let i = roman.length;
+
+  let i = str.length;
   let lastVal = 0;
   while (i--) {
-    if (values[roman.charAt(i)] >= lastVal) {
-      value += values[roman.charAt(i)];
+    if (romanValues[str.charAt(i)] >= lastVal) {
+      value += romanValues[str.charAt(i)];
     } else {
-      value -= values[roman.charAt(i)];
+      value -= romanValues[str.charAt(i)];
     }
-    lastVal = values[roman.charAt(i)];
+    lastVal = romanValues[str.charAt(i)];
   }
 
   return value;
@@ -38,10 +42,7 @@ export function parseLetterNumber(str: string): number {
 }
 
 /**
- * Removes the sourounding tag of a node
- *
- * @param {Node} node
- * @returns {Node}
+ * Removes the surrounding tag of a node
  */
 export function unwrapNode(node: Node): void {
   const parent = node.parentNode;
@@ -53,11 +54,8 @@ export function unwrapNode(node: Node): void {
 
 /**
  * Parses arbitrary style properties of an element into an object
- *
- * @param {Element} el
- * @returns {Object}
  */
-export function parseStyleAttribute(el: Element): { [prop: string]: string } {
-  const styleRaw: string = el?.attributes[`style`]?.value || ``;
+export function parseStyleAttribute(el: Element): Record<string, string | undefined> {
+  const styleRaw = el.getAttribute(`style`) || ``;
   return Object.fromEntries(styleRaw.split(`;`).map((line) => line.split(`:`).map((v) => v.trim())));
 }
