@@ -11,7 +11,8 @@
   margin-right: auto;
 }
 
-.output-html, .input-html {
+.output-html,
+.input-html {
   padding: 8px;
   border-radius: 6px;
   border: 1px solid;
