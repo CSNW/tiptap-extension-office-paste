@@ -64,8 +64,8 @@ function getListItemFromParagraph(el: HTMLElement) {
 // Parses 'mso-list' style attribute
 function parseMsoListAttribute(attr: string) {
   const msoListInfos = attr.split(" ");
-  const msoListId = msoListInfos.find((e) => /l[0-9]+/.test(e)) || "";
-  const msoListLevel = +(msoListInfos.find((e: string) => e.startsWith("level"))?.substring(5) || 1);
+  const msoListId = msoListInfos.find((e) => /^l\d+/.test(e)) ?? "";
+  const msoListLevel = +(msoListInfos.find((e) => /^level\d+$/.test(e))?.substring(5) || 1);
 
   return [msoListId, msoListLevel] as const;
 }

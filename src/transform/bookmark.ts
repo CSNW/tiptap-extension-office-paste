@@ -5,10 +5,9 @@ export function transformRemoveBookmarks(doc: Document) {
     const bookmark = parseStyleAttribute(node)["mso-bookmark"];
     if (!bookmark) return;
 
-    const bookmarkLink = doc.querySelector<HTMLAnchorElement>(`a[name="${bookmark}"]`);
-    if (bookmarkLink) {
-      unwrapNode(bookmarkLink);
-    }
+    doc.querySelectorAll<HTMLAnchorElement>(`a[name="${CSS.escape(bookmark)}"]`).forEach((anchor) => {
+      unwrapNode(anchor);
+    });
     unwrapNode(node);
   });
 }

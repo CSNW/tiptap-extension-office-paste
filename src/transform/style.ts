@@ -16,7 +16,9 @@ export function transformMsoStyles(doc: Document) {
     node.setAttribute("style", newStyles.join(";"));
   });
 
-  doc.querySelectorAll<HTMLElement>('[style*="color: black"]').forEach((node) => {
-    node.style.removeProperty("color");
+  doc.querySelectorAll<HTMLElement>('[style*="color"]').forEach((node) => {
+    if (node.style.color === "black") {
+      node.style.removeProperty("color");
+    }
   });
 }
