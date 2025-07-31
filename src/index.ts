@@ -6,15 +6,6 @@ import { transformLists } from "./transform/list.js";
 import { transformRemoveLineNumberWrapper } from "./transform/line-number.js";
 import { transformMsoHtmlClasses } from "./transform/html-classes.js";
 
-const OfficePaste = Extension.create({
-  priority: 99999,
-  name: `office-paste`,
-
-  addProseMirrorPlugins() {
-    return [OfficePastePlugin];
-  },
-});
-
 const OfficePastePlugin = new Plugin({
   key: new PluginKey("office-paste"),
   props: {
@@ -33,6 +24,15 @@ const OfficePastePlugin = new Plugin({
 
       return doc.documentElement.outerHTML;
     },
+  },
+});
+
+const OfficePaste = Extension.create({
+  priority: 99999,
+  name: `office-paste`,
+
+  addProseMirrorPlugins() {
+    return [OfficePastePlugin];
   },
 });
 

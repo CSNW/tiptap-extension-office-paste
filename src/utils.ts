@@ -57,5 +57,12 @@ export function unwrapNode(node: Node): void {
  */
 export function parseStyleAttribute(el: Element): Record<string, string | undefined> {
   const styleRaw = el.getAttribute(`style`) || ``;
-  return Object.fromEntries(styleRaw.split(`;`).map((line) => line.split(`:`).map((v) => v.trim())));
+  const styles = styleRaw
+    .split(`;`)
+    .map((line) => {
+      const parts = line.split(`:`);
+      return parts.length === 2 ? (parts.map((v) => v.trim()) as [string, string]) : undefined;
+    })
+    .filter((s) => !!s);
+  return Object.fromEntries(styles);
 }
