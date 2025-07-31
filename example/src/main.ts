@@ -3,16 +3,17 @@ import { Editor, Extension } from '@tiptap/core'
 import StarterKit from '@tiptap/starter-kit'
 import OfficePaste from '@csnw/tiptap-extension-office-paste'
 import { Plugin, PluginKey } from '@tiptap/pm/state';
-import Table from '@tiptap/extension-table';
-import TableRow from '@tiptap/extension-table-row';
-import TableCell from '@tiptap/extension-table-cell';
-import TableHeader from '@tiptap/extension-table-header';
-import TextStyle from '@tiptap/extension-text-style';
+import { Table } from '@tiptap/extension-table';
+import { TableRow } from '@tiptap/extension-table-row';
+import { TableCell } from '@tiptap/extension-table-cell';
+import { TableHeader } from '@tiptap/extension-table-header';
+import { Color, TextStyle } from '@tiptap/extension-text-style';
 import format from "html-format";
 
 const editor = new Editor({
   element: document.querySelector('.editor')!,
   extensions: [
+    Color,
     OfficePaste,
     TextStyle,
     TableRow,
