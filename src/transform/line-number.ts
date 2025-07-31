@@ -1,4 +1,4 @@
-import { unwrapNode } from "../utils";
+import { unwrapNode } from "../utils.js";
 
 export function transformRemoveLineNumberWrapper(doc: Document) {
   const lineNumbers = doc.querySelectorAll<HTMLElement>(`[class*="MsoLineNumber"]`);

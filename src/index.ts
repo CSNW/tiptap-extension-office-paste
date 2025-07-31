@@ -1,10 +1,10 @@
 import { Extension } from "@tiptap/core";
 import { Plugin, PluginKey } from "@tiptap/pm/state";
-import { transformMsoStyles } from "./transform/style";
-import { transformRemoveBookmarks } from "./transform/bookmark";
-import { transformLists } from "./transform/list";
-import { transformRemoveLineNumberWrapper } from "./transform/line-number";
-import { transformMsoHtmlClasses } from "./transform/html-classes";
+import { transformMsoStyles } from "./transform/style.js";
+import { transformRemoveBookmarks } from "./transform/bookmark.js";
+import { transformLists } from "./transform/list.js";
+import { transformRemoveLineNumberWrapper } from "./transform/line-number.js";
+import { transformMsoHtmlClasses } from "./transform/html-classes.js";
 
 const OfficePaste = Extension.create({
   priority: 99999,

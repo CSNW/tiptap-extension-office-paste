@@ -1,4 +1,4 @@
-import { parseLetterNumber, parseRomanNumber, parseStyleAttribute } from "../utils";
+import { parseLetterNumber, parseRomanNumber, parseStyleAttribute } from "../utils.js";
 
 export function transformLists(doc: Document) {
   let listStack: HTMLElement[] = [];

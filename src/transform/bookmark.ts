@@ -1,4 +1,4 @@
-import { parseStyleAttribute, unwrapNode } from "../utils";
+import { parseStyleAttribute, unwrapNode } from "../utils.js";
 
 export function transformRemoveBookmarks(doc: Document) {
   const bookmarks = doc.querySelectorAll<HTMLElement>(`[style*="mso-bookmark:"]`);

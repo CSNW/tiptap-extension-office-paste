@@ -1,6 +1,6 @@
 import assert from "node:assert";
 import { describe, it } from "node:test";
-import { parseLetterNumber, parseRomanNumber } from "./utils";
+import { parseLetterNumber, parseRomanNumber } from "./utils.js";
 
 describe(`parseLetterNumber function`, () => {
   it(`test one digit numbers`, () => {

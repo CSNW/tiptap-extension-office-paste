@@ -1,4 +1,4 @@
-import { parseStyleAttribute } from "../utils";
+import { parseStyleAttribute } from "../utils.js";
 
 export function transformMsoStyles(doc: Document) {
   doc.querySelectorAll(CSS.escape("o:p")).forEach((node) => {
