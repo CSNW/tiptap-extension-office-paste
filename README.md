@@ -3,12 +3,12 @@ This extension fixes format of text copied from MS Office and pasted into the [T
 
 ## Installing
 ```
-npm i --save @intevation/tiptap-extension-office-paste
+npm i --save @csnw/tiptap-extension-office-paste
 ```
 
 ## Features
 * Fixes lists
-  * Convertes mso lists into actual html lists
+  * Converts mso lists into actual html lists
   * Corrects list levels
   * Parse list type and start
 * Removes bookmark tags
@@ -18,7 +18,7 @@ npm i --save @intevation/tiptap-extension-office-paste
 
 ## Usage
 ```javascript
-import OfficePaste from "@intevation/tiptap-extension-office-paste";
+import OfficePaste from "@csnw/tiptap-extension-office-paste";
 
 const editor = Editor({
     extensions: [
@@ -30,4 +30,4 @@ const editor = Editor({
 
 # License
 
-The MIT License (MIT). Please see [License File](https://github.com/Intevation/tiptap-extension-office-paste/blob/main/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](./LICENSE) for more information.

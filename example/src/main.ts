@@ -1,7 +1,7 @@
 import './style.css'
 import { Editor, Extension } from '@tiptap/core'
 import StarterKit from '@tiptap/starter-kit'
-import OfficePaste from '@intevation/tiptap-extension-office-paste'
+import OfficePaste from '@csnw/tiptap-extension-office-paste'
 import { Plugin, PluginKey } from '@tiptap/pm/state';
 import Table from '@tiptap/extension-table';
 import TableRow from '@tiptap/extension-table-row';
