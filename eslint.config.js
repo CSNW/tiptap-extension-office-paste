@@ -8,7 +8,7 @@ import prettier from "eslint-plugin-prettier/recommended";
 
 export default tseslint.config(
   {
-    ignores: ["**/dist/", "package-lock.json"],
+    ignores: ["**/dist/", "**/package-lock.json"],
   },
   eslint.configs.recommended,
   {
