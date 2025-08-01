@@ -10,4 +10,14 @@ export function transformRemoveBookmarks(doc: Document) {
     });
     unwrapNode(node);
   });
+
+  doc.querySelectorAll<HTMLAnchorElement>("a[name]").forEach((node) => {
+    const name = node.getAttribute("name");
+    if (!name || node.children.length) return;
+
+    doc.querySelectorAll<HTMLAnchorElement>(`a[href="#${CSS.escape(name)}"]`).forEach((anchor) => {
+      unwrapNode(anchor);
+    });
+    node.remove();
+  });
 }
