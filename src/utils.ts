@@ -5,33 +5,34 @@ const romanValues: Record<string, number> = { I: 1, V: 5, X: 10, L: 50, C: 100, 
 /**
  * Parses a roman number string into a number
  *
- * Example: a -> 1, ab -> 28, ...
+ * Example: IV -> 4, LX -> 60, ...
  */
-export function parseRomanNumber(str: string): number {
+export function parseRomanNumber(str: string) {
   str = str.toUpperCase();
-  let value = 0;
 
   let i = str.length;
   let lastVal = 0;
+  let value = 0;
   while (i--) {
-    if (romanValues[str.charAt(i)] >= lastVal) {
-      value += romanValues[str.charAt(i)];
+    const romanValue = romanValues[str.charAt(i)];
+    if (romanValue >= lastVal) {
+      value += romanValue;
     } else {
-      value -= romanValues[str.charAt(i)];
+      value -= romanValue;
     }
-    lastVal = romanValues[str.charAt(i)];
+    lastVal = romanValue;
   }
 
   return value;
 }
 
 /**
- * Parses a list item index of letters.
+ * Parses a list item index of letters
  *
  * Example: a -> 1, ab -> 28, ...
  */
-export function parseLetterNumber(str: string): number {
-  const alphaVal = (s: string): number => s.toLowerCase().charCodeAt(0) - 97 + 1;
+export function parseLetterNumber(str: string) {
+  const alphaVal = (s: string) => s.toLowerCase().charCodeAt(0) - 97 + 1;
   let value = 0;
   let i = str.length;
   while (i--) {
@@ -44,7 +45,7 @@ export function parseLetterNumber(str: string): number {
 /**
  * Removes the surrounding tag of a node
  */
-export function unwrapNode(node: Node): void {
+export function unwrapNode(node: Node) {
   const parent = node.parentNode;
   while (node.firstChild) {
     parent?.insertBefore(node.firstChild, node);
@@ -55,14 +56,14 @@ export function unwrapNode(node: Node): void {
 /**
  * Parses arbitrary style properties of an element into an object
  */
-export function parseStyleAttribute(el: Element): Record<string, string | undefined> {
-  const styleRaw = el.getAttribute(`style`) || ``;
+export function parseStyleAttribute(el: Element) {
+  const styleRaw = el.getAttribute("style") || "";
   const styles = styleRaw
-    .split(`;`)
+    .split(";")
     .map((line) => {
-      const parts = line.split(`:`);
+      const parts = line.split(":");
       return parts.length === 2 ? (parts.map((v) => v.trim()) as [string, string]) : undefined;
     })
     .filter((s) => !!s);
-  return Object.fromEntries(styles);
+  return Object.fromEntries<string | undefined>(styles);
 }
