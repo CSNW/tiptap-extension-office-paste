@@ -2,13 +2,11 @@ import { parseLetterNumber, parseRomanNumber, parseStyleAttribute } from "../uti
 
 export function transformLists(doc: Document) {
   let listStack: HTMLElement[] = [];
-  let currentListId: string;
-  const listElements = doc.querySelectorAll<HTMLParagraphElement>('p[style*="mso-list:"]');
-  listElements.forEach((el) => {
+  let currentListId: string | undefined;
+  doc.querySelectorAll<HTMLParagraphElement>('p[style*="mso-list:"]').forEach((el) => {
     const msoListStyle = parseStyleAttribute(el)["mso-list"];
-    if (!msoListStyle) {
-      return;
-    }
+    if (!msoListStyle) return;
+
     const [msoListId, msoListLevel] = parseMsoListAttribute(msoListStyle);
 
     // Check for start of a new list
@@ -64,7 +62,7 @@ function getListItemFromParagraph(el: HTMLElement) {
 // Parses 'mso-list' style attribute
 function parseMsoListAttribute(attr: string) {
   const msoListInfos = attr.split(" ");
-  const msoListId = msoListInfos.find((e) => /^l\d+/.test(e)) ?? "";
+  const msoListId = msoListInfos.find((e) => /^l\d/.test(e)) ?? "";
   const msoListLevel = +(msoListInfos.find((e) => /^level\d+$/.test(e))?.substring(5) || 1);
 
   return [msoListId, msoListLevel] as const;
