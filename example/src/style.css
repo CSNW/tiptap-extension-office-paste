@@ -1,28 +1,22 @@
+.office-html,
+.transformed-html,
 .editor .tiptap {
-  padding: 8px;
-  border-radius: 6px;
+  padding: 1em;
   border: 1px solid;
   height: 25vh;
-  margin-bottom: 5px;
   overflow: scroll;
   resize: vertical;
   max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto 1em;
 }
 
-.output-html,
-.input-html {
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid;
-  height: 25vh;
-  min-height: 200px;
-  margin-bottom: 0.3vh;
-  overflow: scroll;
-  resize: vertical;
+.editor .tiptap :first-child {
+  margin-top: 0;
+}
+
+.office-html,
+.transformed-html {
+  font-family: "lucida console", "courier new", monospace;
   white-space: pre;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  font-size: 85%;
 }

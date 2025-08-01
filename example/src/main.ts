@@ -8,7 +8,7 @@ import { TableRow } from "@tiptap/extension-table-row";
 import { TableCell } from "@tiptap/extension-table-cell";
 import { TableHeader } from "@tiptap/extension-table-header";
 import { Color, TextStyle } from "@tiptap/extension-text-style";
-import format from "html-format";
+import { prettify } from "htmlfy";
 
 const editor = new Editor({
   element: document.querySelector(".editor")!,
@@ -23,16 +23,16 @@ const editor = new Editor({
     StarterKit,
     Extension.create({
       priority: 201,
-      onUpdate: () => {
-        document.querySelector(`.output-html`)!.textContent = format(editor.getHTML());
+      onUpdate() {
+        document.querySelector(".transformed-html")!.textContent = prettify(editor.getHTML());
       },
       addProseMirrorPlugins() {
         return [
           new Plugin({
             key: new PluginKey("get-paste-paste"),
             props: {
-              transformPastedHTML(html: string): string {
-                document.querySelector(`.input-html`)!.textContent = format(html);
+              transformPastedHTML(html) {
+                document.querySelector(".office-html")!.textContent = html;
                 return html;
               },
             },
