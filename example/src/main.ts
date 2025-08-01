@@ -22,7 +22,7 @@ const editor = new Editor({
     Table,
     StarterKit,
     Extension.create({
-      priority: 100000,
+      priority: 201,
       onUpdate: () => {
         document.querySelector(`.output-html`)!.textContent = format(editor.getHTML());
       },

@@ -32,7 +32,7 @@ const OfficePastePlugin = new Plugin({
 });
 
 const OfficePaste = Extension.create({
-  priority: 99999,
+  priority: 200,
   name: "office-paste",
 
   addProseMirrorPlugins() {
