@@ -80,9 +80,9 @@ function getListPrefix(el: HTMLElement) {
 
 function createListElement(el: HTMLElement) {
   const listInfo = getListInfo(getListPrefix(el));
-  const list = document.createElement(listInfo.type);
-  if (listInfo.countType) {
-    list.setAttribute("type", listInfo.countType);
+  const list = document.createElement(listInfo.tag);
+  if (listInfo.type) {
+    list.setAttribute("type", listInfo.type);
   }
   if (listInfo.start > 1) {
     list.setAttribute("start", listInfo.start.toString());
@@ -91,42 +91,46 @@ function createListElement(el: HTMLElement) {
 }
 
 const listOrderRegex = {
-  number: /[0-9]+\./,
-  romanLower: /(?=[mdclxvi])m*(c[md]|d?c*)(x[cl]|l?x*)(i[xv]|v?i*)\./,
-  romanUpper: /(?=[MDCLXVI])M*(C[MD]|D?C*)(X[CL]|L?X*)(I[XV]|V?I*)\./,
-  letterLower: /[a-z]+\./,
-  letterUpper: /[A-Z]+\./,
+  number: /^[0-9]+$/,
+  romanLower: /^(?=[mdclxvi])m*(c[md]|d?c*)(x[cl]|l?x*)(i[xv]|v?i*)$/,
+  romanUpper: /^(?=[MDCLXVI])M*(C[MD]|D?C*)(X[CL]|L?X*)(I[XV]|V?I*)$/,
+  letterLower: /^[a-z]+$/,
+  letterUpper: /^[A-Z]+$/,
 };
 
 function getListInfo(prefix: string) {
-  let type: "ul" | "ol" = "ul";
-  let countType: string | null = null;
+  let tag: "ul" | "ol" = "ul";
+  let type: string | null = null;
   let start = 1;
   let matches: RegExpMatchArray | null;
-  if ((matches = prefix.match(listOrderRegex.number))) {
-    type = "ol";
-    start = +matches[0].replace(".", "");
-  } else if ((matches = prefix.match(listOrderRegex.romanLower))) {
-    type = "ol";
-    countType = "i";
-    start = +parseRomanNumber(matches[0].replace(".", ""));
-  } else if ((matches = prefix.match(listOrderRegex.romanUpper))) {
-    type = "ol";
-    countType = "I";
-    start = +parseRomanNumber(matches[0].replace(".", ""));
-  } else if ((matches = prefix.match(listOrderRegex.letterLower))) {
-    type = "ol";
-    countType = "a";
-    start = +parseLetterNumber(matches[0].replace(".", ""));
-  } else if ((matches = prefix.match(listOrderRegex.letterUpper))) {
-    type = "ol";
-    countType = "A";
-    start = +parseLetterNumber(matches[0].replace(".", ""));
+
+  if (prefix.endsWith(".") || prefix.endsWith(")")) {
+    prefix = prefix.substring(0, prefix.length - 1).trim();
+    if ((matches = prefix.match(listOrderRegex.number))) {
+      tag = "ol";
+      start = +matches[0];
+    } else if ((matches = prefix.match(listOrderRegex.romanLower))) {
+      tag = "ol";
+      type = "i";
+      start = +parseRomanNumber(matches[0]);
+    } else if ((matches = prefix.match(listOrderRegex.romanUpper))) {
+      tag = "ol";
+      type = "I";
+      start = +parseRomanNumber(matches[0]);
+    } else if ((matches = prefix.match(listOrderRegex.letterLower))) {
+      tag = "ol";
+      type = "a";
+      start = +parseLetterNumber(matches[0]);
+    } else if ((matches = prefix.match(listOrderRegex.letterUpper))) {
+      tag = "ol";
+      type = "A";
+      start = +parseLetterNumber(matches[0]);
+    }
   }
 
   return {
-    type,
+    tag,
     start,
-    countType,
+    type,
   };
 }
