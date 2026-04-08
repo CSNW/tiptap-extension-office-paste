@@ -1,6 +1,6 @@
 {
   "name": "@csnw/tiptap-extension-office-paste",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Office paste fix extension for tiptap editor",
   "main": "./dist/index.cjs",
   "exports": {
