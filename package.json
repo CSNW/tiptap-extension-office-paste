@@ -38,18 +38,18 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
-    "@tiptap/core": "^3.11.0",
-    "@tiptap/pm": "^3.11.0",
-    "@types/node": "^22.19.1",
-    "eslint": "^9.39.1",
+    "@tiptap/core": "^3.22.3",
+    "@tiptap/pm": "^3.22.3",
+    "@types/node": "^22.19.17",
+    "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-json": "^4.0.1",
-    "eslint-plugin-prettier": "^5.5.4",
-    "prettier": "^3.6.2",
-    "publint": "^0.3.15",
+    "eslint-plugin-prettier": "^5.5.5",
+    "prettier": "^3.8.1",
+    "publint": "^0.3.18",
     "tsup": "^8.5.1",
-    "tsx": "^4.20.6",
-    "typescript": "~5.9.3",
-    "typescript-eslint": "^8.47.0"
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.58.1"
   }
 }
