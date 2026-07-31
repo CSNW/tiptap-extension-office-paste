@@ -37,19 +37,23 @@
     "@tiptap/pm": "^3"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
-    "@tiptap/core": "^3.22.3",
-    "@tiptap/pm": "^3.22.3",
-    "@types/node": "^22.19.17",
-    "eslint": "^9.39.4",
+    "@eslint/js": "^10.0.1",
+    "@tiptap/core": "^3.29.2",
+    "@tiptap/pm": "^3.29.2",
+    "@types/node": "^26.1.2",
+    "eslint": "^10.8.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-json": "^4.0.1",
-    "eslint-plugin-prettier": "^5.5.5",
-    "prettier": "^3.8.1",
-    "publint": "^0.3.18",
+    "eslint-plugin-json": "^5.0.0",
+    "eslint-plugin-prettier": "^5.5.6",
+    "globals": "17.8.0",
+    "prettier": "^3.9.6",
+    "publint": "^0.3.22",
     "tsup": "^8.5.1",
-    "tsx": "^4.21.0",
+    "tsx": "^4.23.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.58.1"
+    "typescript-eslint": "^8.65.0"
+  },
+  "allowScripts": {
+    "esbuild": true
   }
 }

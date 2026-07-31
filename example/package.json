@@ -10,18 +10,18 @@
   },
   "devDependencies": {
     "typescript": "^5.9.3",
-    "vite": "^7.3.2"
+    "vite": "^8.2.0"
   },
   "dependencies": {
     "@csnw/tiptap-extension-office-paste": "file:..",
-    "@tiptap/core": "^3.22.3",
-    "@tiptap/extension-table": "^3.22.3",
-    "@tiptap/extension-table-cell": "^3.22.3",
-    "@tiptap/extension-table-header": "^3.22.3",
-    "@tiptap/extension-table-row": "^3.22.3",
-    "@tiptap/extension-text-style": "^3.22.3",
-    "@tiptap/pm": "^3.22.3",
-    "@tiptap/starter-kit": "^3.22.3",
-    "htmlfy": "^1.0.1"
+    "@tiptap/core": "^3.29.2",
+    "@tiptap/extension-table": "^3.29.2",
+    "@tiptap/extension-table-cell": "^3.29.2",
+    "@tiptap/extension-table-header": "^3.29.2",
+    "@tiptap/extension-table-row": "^3.29.2",
+    "@tiptap/extension-text-style": "^3.29.2",
+    "@tiptap/pm": "^3.29.2",
+    "@tiptap/starter-kit": "^3.29.2",
+    "htmlfy": "^1.0.2"
   }
 }
