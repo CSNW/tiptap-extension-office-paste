@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.browser.json",
+  "compilerOptions": {
+    "types": ["node"],
+    "noEmit": true,
+    "rootDir": "."
+  },
+  "include": ["src/**/*.spec.ts", "oxlint.config.ts"],
+  "exclude": []
+}

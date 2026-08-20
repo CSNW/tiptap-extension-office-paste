@@ -11,9 +11,10 @@
     }
   },
   "scripts": {
-    "build": "rimraf dist && tsc -p tsconfig.build.json",
-    "test": "node --import tsx --test src/*.spec.ts",
+    "build": "rimraf dist && tsc -p tsconfig.browser.json",
+    "test": "tsx --test src/*.spec.ts",
     "format": "prettier --write .",
+    "check-types": "tsc --noEmit -p tsconfig.browser.json && tsc -p tsconfig.node.json",
     "check-formatting": "prettier --check .",
     "lint": "oxlint --deny-warnings",
     "publint": "publint"
